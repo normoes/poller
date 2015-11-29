@@ -1,0 +1,4 @@
+md5sum()
+os.stat mtime
+pynotify
+findfirstchange window event/hook
