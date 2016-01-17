@@ -1,6 +1,6 @@
 import os
 
-from packages.files.fileChecker import fileChecker 
+from packages.fileChecker import fileChecker 
 
 BLOCKSIZE = 128
 
@@ -30,3 +30,17 @@ class fileHasher():
         if self.hasher_whole:            
             return self.hasher_whole.hexdigest()        
         return ''    
+def test():
+    import hashlib
+    fileh = fileHasher(hashlib.md5)
+    import os
+    print fileh.fileHash(os.getcwd()+os.sep+'__init__.py')
+    print fileh.fileHash(os.getcwd()+os.sep+'fileHasher.py')
+    print fileh.fileHash(os.getcwd()+os.sep+'12.txt')
+    print fileh.WholeHash()
+    
+    
+if __name__ == '__main__':
+    print __package__
+    print __name__
+    print __file__   

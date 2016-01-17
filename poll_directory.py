@@ -1,26 +1,4 @@
 # !/usr/bin/python
-"""
-
-hashlib.md5().update considers order of files in the following way:
-    assume:
-        /pictures
-            /products
-                1.png
-                2.png
-                company_logo.png
-            logo.png
-    --> produces HASH1
-    assume the following change:
-        /pictures
-            /products
-                1.png
-                2.png
-            company_logo.png
-            logo.png
-    --> produces HASH2
---> HASH1 <> HASH2    
-
-"""
 
 __version__ = '0.0.1'
 
@@ -70,16 +48,16 @@ if __name__ == "__main__":
     #path = r'C:\Users\nom\Downloads'
     if os.path.exists(path):    
         debug = True
-        logger = logIt(os.getcwd(), 'logger'+datetime.now().strftime("%Y-%m-%d-%H-%M-%S")+'.txt', debug)
+        logger = logIt(os.getcwd(), 'logger'+datetime.utcnow().strftime("%Y-%m-%d-%H-%M-%S")+'.txt', debug)
         d = timedelta(seconds=interval)
-        start = datetime.now()
+        start = datetime.utcnow()
         directoryHashes.append((start.strftime("%Y-%m-%d %H:%M:%S"),poll(path, logger)))
 	
         while True:
-            stop = datetime.now()
+            stop = datetime.utcnow()
             if stop-start > d:
                 directoryHashes.append((stop.strftime("%Y-%m-%d %H:%M:%S"),poll(path, logger)))
-                start = datetime.now() 
+                start = datetime.utcnow() 
                 if logger: 
                     for tup in directoryHashes:                    
                         logger.log(' --> '.join(tup))

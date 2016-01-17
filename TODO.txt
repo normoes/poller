@@ -1,4 +1,6 @@
 md5sum()
-os.stat mtime
+os.stat mtime, check before checksum
 pynotify
 findfirstchange window event/hook
+
+argparse

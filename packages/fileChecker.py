@@ -11,7 +11,9 @@ class fileChecker():
     def isEmpty(self, name):
         try:
             size = os.path.getsize(name)
-        except OSError:
+        except OSError as :
+            if self.logger:
+                self.logger.log(e)
             size = 0
         if self.logger:
             self.logger.log('size: ' + self.humansize(size))
@@ -27,3 +29,8 @@ class fileChecker():
             i += 1
         f = ('%.2f' % nbytes).rstrip('0').rstrip('.')
         return '%s %s' % (f, self.suffixes[i])          
+        
+if __name__ == '__main__':
+    print __package__
+    print __name__
+    print __file__    
