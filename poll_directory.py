@@ -11,13 +11,22 @@ import hashlib
 
 import threading
 
-from packages.hasher.fileHasher import fileHasher
+from packages.fileHasher import fileHasher
+from packages.logIt import logIt
 
 import os 
+
+
+"""
+TODO:
+    compare hashes
+    passing arguments (multiple directories)
+    recursive vs. non-recursive
+
+"""
  
 interval = 10
 
-from packages.logger.logIt import logIt
 
 def poll(target, logger = None):
     if logger:
@@ -44,7 +53,7 @@ if __name__ == "__main__":
     directoryHashes = list()
     
     #path = r'P:\PRO-378\TestPosit\nightlyBuilds'
-    path = r'/home/norman/Downloads/adsodbc-11.10.0.24/'
+    path = r'/home/norman/Downloads/'
     #path = r'C:\Users\nom\Downloads'
     if os.path.exists(path):    
         debug = True
@@ -52,14 +61,17 @@ if __name__ == "__main__":
         d = timedelta(seconds=interval)
         start = datetime.utcnow()
         directoryHashes.append((start.strftime("%Y-%m-%d %H:%M:%S"),poll(path, logger)))
-	
-        while True:
-            stop = datetime.utcnow()
-            if stop-start > d:
-                directoryHashes.append((stop.strftime("%Y-%m-%d %H:%M:%S"),poll(path, logger)))
-                start = datetime.utcnow() 
-                if logger: 
-                    for tup in directoryHashes:                    
-                        logger.log(' --> '.join(tup))
+        try:
+            while True:
+                stop = datetime.utcnow()
+                if stop-start > d:
+                    directoryHashes.append((stop.strftime("%Y-%m-%d %H:%M:%S"),poll(path, logger)))
+                    start = datetime.utcnow() 
+                    #print stop - start
+                    #if logger: 
+                    #    for tup in directoryHashes:                    
+                    #        logger.log(' --> '.join(tup))
+        except KeyboardInterrupt:
+            print 'stopping the application'
     else:
         print 'path does not exist', path

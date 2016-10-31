@@ -11,7 +11,7 @@ class fileChecker():
     def isEmpty(self, name):
         try:
             size = os.path.getsize(name)
-        except OSError as :
+        except OSError as e:
             if self.logger:
                 self.logger.log(e)
             size = 0
